@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { AlertCircle, DollarSign, Globe, Info, Plus, Save, Trash, User } from "lucide-react"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -16,8 +16,9 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Textarea } from "@/components/ui/textarea"
 import { Separator } from "@/components/ui/separator"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-
+import prisma from "@/lib/prisma"
 // Sample rules data
+
 const existingRules = [
   {
     id: "rule-001",
@@ -65,6 +66,27 @@ export default function RulesConfiguration() {
   const [rules, setRules] = useState(existingRules)
   const [activeTab, setActiveTab] = useState("existing")
 
+  useEffect(() => {
+    const fetchRules = async () => {
+      const oldRules = await prisma.fraudRule.findMany();
+      
+      const transformedRules = oldRules.map((rule) => ({
+        id: rule.id,
+        name: rule.name,
+        description: rule.description,
+        type: rule.type,
+        condition: rule.condition,
+        riskScore: rule.riskScore,
+        enabled: rule.status,
+        createdAt: rule.createdAt,
+        value: rule.condition.split(" ")[1],
+      }));
+      
+      setRules(transformedRules);
+    };
+
+    fetchRules();
+  }, [])
   const [newRule, setNewRule] = useState({
     name: "",
     description: "",

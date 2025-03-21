@@ -45,7 +45,7 @@ export default function ClientLayout({
                       )}
                       Dashboard
                     </Link>
-                    <Link
+                    {/* <Link
                       href="/rules"
                       className={cn(
                         "transition-colors hover:text-foreground/80 relative",
@@ -56,7 +56,19 @@ export default function ClientLayout({
                         <span className="absolute -bottom-[18px] left-0 right-0 h-[2px] bg-primary rounded-full" />
                       )}
                       Rules Configuration
-                    </Link>
+                    </Link> */}
+                    <Link
+                     href={"/transaction"}
+                     className={cn(
+                        "transition-colors hover:text-foreground/80 relative",
+                        pathname === "/transaction" ? "text-foreground" : "text-foreground/60",
+                      )}
+                    >
+                      {pathname === "/transaction" && (
+                        <span className="absolute -bottom-[18px] left-0 right-0 h-[2px] bg-primary rounded-full" />
+                      )}
+                      Transactions
+                      </Link>
                   </nav>
                 </div>
                 <div className="ml-auto flex items-center space-x-4">

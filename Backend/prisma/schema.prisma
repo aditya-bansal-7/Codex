@@ -1,0 +1,20 @@
+generator client {
+    provider = "prisma-client-py"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL") // Use your actual database connection
+}
+
+model FraudRule {
+    id          String   @id @default(uuid())
+    name        String
+    description String
+    type        String // "Amount", "Location", "Velocity", "Payee"
+    condition   String // "> 1000", "not-in US,CA,UK", etc.
+    riskScore   Int // Risk score (e.g., 80, 70, 65)
+    status      Boolean // If rule is active
+    value       String
+    createdAt   DateTime @default(now())
+}
