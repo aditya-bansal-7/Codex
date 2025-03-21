@@ -30,7 +30,7 @@ export default function ClientLayout({
                 <div className="mr-4 flex">
                   <Link href="/" className="mr-6 flex items-center space-x-2">
                     <Shield className="h-6 w-6 text-primary" />
-                    <span className="hidden font-bold sm:inline-block">FraudGuard</span>
+                    <span className="hidden font-bold sm:inline-block">Code X</span>
                   </Link>
                   <nav className="flex items-center space-x-6 text-sm font-medium">
                     <Link
